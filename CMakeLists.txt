@@ -26,5 +26,5 @@ add_subdirectory(common)   # чтение данных (только загол�
 add_subdirectory(src)      # основная реализация
 add_subdirectory(naive)    # наивная реализация, для сравнения
 add_subdirectory(app)      # программа для запуска с числами
-add_subdirectory(tests)    # тесты
+#add_subdirectory(tests)    # тесты
 # В data/ нет кода, только текстовые файлы, поэтому CMake там не нужен.

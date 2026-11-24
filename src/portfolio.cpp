@@ -101,6 +101,8 @@ namespace {
     }
 
 
+    //матрица рисков в обоих методах только читается. метод с.г. использует её лишь для умножения на вектор и меняет только свои рабочие векторы и ответ. schur меняет только доли и риск. в отличие от Гаусса, нам не нужна копия матрицы на каждом шаге, а исходные данные остаются нетронутыми
+
 }  // конец namespace
 
 
@@ -140,7 +142,9 @@ PortfolioResult PortfolioOptimizer::solve(double E) const {
 
     // active - активы, которые ещё участвуют в расчёте, сначала все
     std::vector<std::size_t> active(n);
-    std::iota(active.begin(), active.end(), std::size_t{0});
+    for (std::size_t i = 0; i < n; ++i) {
+        active[i] = i;
+    }
 
     // Буферы создаём один раз, а не на каждом шаге цикла.
     // Максимальный размер - все активы, дальше они только уменьшаются.
@@ -207,6 +211,7 @@ PortfolioResult PortfolioOptimizer::solve(double E) const {
         // выбрасываем актив с отрицательной долей и считаем заново
         active.erase(active.begin() + static_cast<std::ptrdiff_t>(worst));
     }
+    throw std::runtime_error("решение не найдено");
 }
 
 
